@@ -1,0 +1,54 @@
+# Archivos y directorios generados por Node.js
+node_modules/
+
+# Archivos y directorios generados por npm
+npm-debug.log
+yarn-error.log
+.pnp
+.pnp.js
+
+# Dependiendo de tu proyecto, puedes necesitar ignorar otros archivos generados
+# por diferentes herramientas, como IDEs, editores de texto, compiladores, etc.
+
+# Ejemplos de archivos generados por IDEs (pueden variar según el IDE)
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw*
+
+# Archivos generados por editores de texto
+*.sublime-*
+*.swp
+*.swo
+
+# Archivos de construcción o compilación (dependiendo del lenguaje)
+/build/
+/dist/
+/out/
+/bin/
+
+# Archivos de registros o archivos temporales
+*.log
+*.tmp
+*.temp
+Thumbs.db
+.DS_Store
+
+# Carpeta de configuración (dependiendo del lenguaje)
+/config/
+
+# Archivos de entorno (dependiendo de tu configuración)
+.env
+.env.local
+.env.*.local
+.env.development
+.env.test
+.env.production
+
+# Dependiendo de tu proyecto y el lenguaje que estés utilizando,
+# es posible que desees agregar más reglas de exclusión específicas.
+
+# Comentado: Puedes agregar comentarios utilizando el símbolo #
