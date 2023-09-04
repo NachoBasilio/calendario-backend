@@ -1,16 +1,22 @@
 const express = require('express');
+require('dotenv').config()
 
 const app = express()
 
 
-app.get("/", (req, res)=>{
-    console.log("Se requiere el /")
-    res.json({
-        ok:true
-    })
-})
+//Directorio publico
+app.use(express.static('public'))
 
 
-app.listen(4002, ()=>{
-    console.log("Servidor corriendo en puerto " + 4002)
+//Rutas
+// app.get("/", (req, res)=>{
+
+//     res.json({
+//         ok:true
+//     })
+// })
+
+
+app.listen(process.env.PORT, ()=>{
+    console.log("Servidor corriendo en puerto " + process.env.PORT)
 })
