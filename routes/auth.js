@@ -3,17 +3,20 @@
     host + /api/auth
 */
 
+const { crearUsuario, logearUsuario, recargarCredenciales } = require("../controllers/auth")
+
 
 const {Router} = require("express")
 const router = Router()
 
 
-router.get("/", (req, res)=>{
+ router.get("/renew", recargarCredenciales)
 
-    res.json({
-         ok:true
-    })
-})
+
+
+router.post("/new", crearUsuario)
+
+router.post("/",logearUsuario )
 
 
 module.exports = router
