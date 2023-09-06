@@ -9,14 +9,12 @@ const { crearUsuario, logearUsuario, recargarCredenciales } = require("../contro
 const {Router} = require("express")
 const router = Router()
 
-
- router.get("/renew", recargarCredenciales)
-
-
+router.post("/",logearUsuario )
 
 router.post("/new", crearUsuario)
 
-router.post("/",logearUsuario )
+router.get("/renew", recargarCredenciales)
+
 
 
 module.exports = router
