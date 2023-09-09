@@ -88,11 +88,15 @@ const logearUsuario = async (req, res = response)=>{
     }
 }
 
-const recargarCredenciales = (req, res = response)=>{
+const recargarCredenciales = async (req, res = response)=>{
+    const uid = req.uid
+    const name = req.name
+
+    const token = await generarJWT(uid, name)
 
     res.json({
          ok:true,
-         msg: "renew"
+         token
     })
 }
 

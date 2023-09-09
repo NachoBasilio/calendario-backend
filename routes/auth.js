@@ -9,6 +9,7 @@ const { crearUsuario, logearUsuario, recargarCredenciales } = require("../contro
 const {Router} = require("express")
 const {check} = require("express-validator")
 const { validarCampos } = require("../middlewares/validar-campos")
+const { validarJWT } = require("../middlewares/validar-jwt")
 const router = Router()
 
 router.post(
@@ -32,7 +33,9 @@ router.post(
     crearUsuario
 )
 
-router.get("/renew", recargarCredenciales)
+router.get("/renew", [
+    validarJWT
+],recargarCredenciales)
 
 
 
