@@ -27,6 +27,7 @@ const crearUsuario = async (req, res = response)=>{
             uid: usuario.id,
             name: usuario.name,
         })
+
     } catch (error) {
         res.status(500).json({
             ok: false,
@@ -35,20 +36,46 @@ const crearUsuario = async (req, res = response)=>{
     }
 
 
+
 }
 
-const logearUsuario = (req, res = response)=>{
+const logearUsuario = async (req, res = response)=>{
     const {email, password} = req.body 
 
+    try {
+        const usuario = await Usuario.findOne({email})
 
+        if(!usuario){
+            return res.status(400).json({
+                ok: false,
+                msg: "El usuario no existe"
+            })
+        }
 
-    res.json({
-        ok:true,
-        msg: "login",
-        email,
-        password
+        const validPassword = bcrypt.compareSync(password, usuario.password)
+        console.log(validPassword)
+
+        if(!validPassword){
         
-    })
+            res.status(400).json({
+                ok:false,
+                msg: "La contraseña ta mal"
+            })
+        }
+
+        res.status(200).json({
+            ok:true,
+            msg: "login",
+            uid: usuario.id,
+            name: usuario.name
+        })
+    }
+    catch{
+        res.status(500).json({
+            ok: false,
+            msg: "Por favor hable con el administrador"
+        })
+    }
 }
 
 const recargarCredenciales = (req, res = response)=>{
