@@ -45,31 +45,23 @@ const actualizarEvento = async(req, res =response)=>{
     try {
         const evento = await Evento.findById(eventoId)
         if(!evento){
-            res.status(404).json({
+            return res.status(404).json({
                 true: false,
                 msg: "El evento no existe"
             })
         }
 
         if(evento.user.toString() !== uid){
-            res.status(401).json({
+            return res.status(401).json({
                 true: false,
                 msg: "Usuario no valido"
             })
         }
-
-
         const nuevoEvento = {
             ...req.body,
             user: uid
         }
-
-
-
         const eventoActualizado = await Evento.findByIdAndUpdate(eventoId, nuevoEvento,{new:true})
-
-
-
         res.json({
             true: true,
             evento: eventoActualizado
@@ -83,11 +75,37 @@ const actualizarEvento = async(req, res =response)=>{
     }
 }
 
-const eliminarEvento = (req, res =response)=>{
-    res.json({
-        ok:true, 
-        msg: "eliminarEvento"
-    })
+const eliminarEvento = async (req, res =response)=>{
+    const eventoId = req.params.id
+    const uid = req.uid
+    try {
+        const evento = await Evento.findById(eventoId)
+        if(!evento){
+            return res.status(404).json({
+                true: false,
+                msg: "El evento no existe"
+            })
+        }
+
+        if(evento.user.toString() !== uid){
+            return res.status(401).json({
+                true: false,
+                msg: "Usuario no valido"
+            })
+        }
+
+        await Evento.findByIdAndDelete(eventoId)
+        res.json({
+            true: true,
+           
+        })
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({
+            true: false,
+            msg: "Hable con el admin"
+        })
+    }
 }
 
 

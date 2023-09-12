@@ -35,7 +35,7 @@ router.put("/:id",
     check("end", "Fecha de final es obligatoria").custom(isDate),
     validarCampos
 ],actualizarEvento)
-router.delete("/", eliminarEvento)
+router.delete("/:id", eliminarEvento)
 
 
 module.exports = router
