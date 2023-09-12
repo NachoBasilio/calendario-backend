@@ -28,7 +28,13 @@ router.post("/",
     validarCampos
 ]
 ,crearEvento)
-router.put("/", actualizarEvento)
+router.put("/:id", 
+[
+    check("title", "El titulo es obligatorio").not().isEmpty(),
+    check("start", "Fecha de inicio es obligatoria").custom(isDate),
+    check("end", "Fecha de final es obligatoria").custom(isDate),
+    validarCampos
+],actualizarEvento)
 router.delete("/", eliminarEvento)
 
 

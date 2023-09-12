@@ -38,11 +38,49 @@ const crearEvento = async (req, res =response)=>{
     }
 }
 
-const actualizarEvento = (req, res =response)=>{
-    res.json({
-        ok:true, 
-        msg: "actualizarEvento"
-    })
+const actualizarEvento = async(req, res =response)=>{
+    const eventoId = req.params.id
+    const uid = req.uid
+
+    try {
+        const evento = await Evento.findById(eventoId)
+        if(!evento){
+            res.status(404).json({
+                true: false,
+                msg: "El evento no existe"
+            })
+        }
+
+        if(evento.user.toString() !== uid){
+            res.status(401).json({
+                true: false,
+                msg: "Usuario no valido"
+            })
+        }
+
+
+        const nuevoEvento = {
+            ...req.body,
+            user: uid
+        }
+
+
+
+        const eventoActualizado = await Evento.findByIdAndUpdate(eventoId, nuevoEvento,{new:true})
+
+
+
+        res.json({
+            true: true,
+            evento: eventoActualizado
+        })
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({
+            true: false,
+            msg: "Hable con el admin"
+        })
+    }
 }
 
 const eliminarEvento = (req, res =response)=>{
